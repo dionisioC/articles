@@ -1,0 +1,28 @@
+services:
+  wiremock:
+    image: wiremock/wiremock:3.13.1
+    container_name: wiremock-mtls
+    ports:
+      - "8443:8443"
+    volumes:
+      - ./certs:/etc/wiremock/certs
+      - ./mappings:/home/wiremock/mappings
+    command:
+      - "--https-port"
+      - "8443"
+      - "--https-keystore"
+      - "/etc/wiremock/certs/server.p12"
+      - "--keystore-password"
+      - "wABnMcDDbmBdHIeH5vRcZtcjJ1PfeCgLIt0ko2CbfJc="
+      - "--key-manager-password"
+      - "wABnMcDDbmBdHIeH5vRcZtcjJ1PfeCgLIt0ko2CbfJc="
+      - "--keystore-type"
+      - "pkcs12"
+      - "--https-truststore"
+      - "/etc/wiremock/certs/wiremock.truststore.p12"
+      - "--truststore-password"
+      - "I1Ra0EY9Be1rn4+v2VouRYrqHVnN5Q2P0ugepzLY8Ng="
+      - "--truststore-type"
+      - "pkcs12"
+      - "--https-require-client-cert"
+      - "--verbose"

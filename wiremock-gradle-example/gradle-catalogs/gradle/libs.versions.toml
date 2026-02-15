@@ -1,0 +1,26 @@
+[versions]
+kotlin = "2.2.21"
+springBoot = "4.0.2"
+dependencyManagement = "1.1.7"
+
+wiremock = "3.13.2"
+wiremockTestcontainers = "1.0-alpha-15"
+
+[libraries]
+spring-webflux = { module = "org.springframework.boot:spring-boot-starter-webflux" }
+spring-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+spring-webflux-test = { module = "org.springframework.boot:spring-boot-starter-webflux-test" }
+testcontainers-junit = { module = "org.testcontainers:testcontainers-junit-jupiter" }
+
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
+kotlinx-coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor" }
+jackson-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
+
+wiremock-standalone = { module = "org.wiremock:wiremock-standalone", version.ref = "wiremock" }
+wiremock-testcontainers = { module = "org.wiremock.integrations.testcontainers:wiremock-testcontainers-module", version.ref = "wiremockTestcontainers" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "dependencyManagement" }

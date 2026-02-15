@@ -1,0 +1,47 @@
+plugins {
+    id("org.springframework.boot") version "4.0.2"
+    id("io.spring.dependency-management") version "1.1.7"
+    kotlin("jvm") version "2.2.21"
+    kotlin("plugin.spring") version "2.2.21"
+}
+
+group = "io.github.dionisioc"
+version = "0.0.1-SNAPSHOT"
+
+val wiremockVersion = "3.13.2"
+val wiremockTcVersion = "1.0-alpha-15"
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-webflux-test")
+
+    testImplementation("org.testcontainers:testcontainers-junit-jupiter")
+    testImplementation("org.wiremock:wiremock-standalone:$wiremockVersion")
+    testImplementation("org.wiremock.integrations.testcontainers:wiremock-testcontainers-module:$wiremockTcVersion")
+}
+
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
+    }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+    systemProperty("TEST_WIREMOCK_VERSION", wiremockVersion)
+}
